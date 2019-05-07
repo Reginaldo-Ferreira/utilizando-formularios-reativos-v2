@@ -1,0 +1,126 @@
+/* .ng-invalid.ng-touched:not(form){
+/* se o valor for invalido e tiver sido tocado em então aplica este css. 
+border: 2px solid rgb(196, 34, 34);
+} */
+
+.exemplo {/*  desativado somente teste */
+  -webkit-animation-duration: 0.7s;
+  animation-duration: 0.7s;
+
+}
+
+/* Missing -moz, -ms, and -o */
+.invalid-feedback {
+  -webkit-animation-duration: 0.7s;
+  animation-duration: 0.7s;
+   /*-webkit-animation-delay: 2s;
+  -vendor-animation-iteration-count: infinite; */
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+/* Missing -webkit */
+.invalid-feedback {
+ /*  -moz-border-radius: 5px; */
+ -moz-animation-duration: 0.7s;
+ animation-duration: 0.7s;
+ /*-webkit-animation-delay: 2s;
+-vendor-animation-iteration-count: infinite; */
+-moz-animation-iteration-count: 1;
+animation-iteration-count: 1;
+}
+
+.svgTesteAni {
+stroke-dasharray: 1000;
+stroke-dashoffset: 1000;
+-webkit-animation: dash 5s linear alternate infinite;
+animation: dash 5s linear alternate infinite;
+}
+
+
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 1000;
+    }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.svg-24px {
+width: 24px;
+height: 24px;
+}
+.check {
+fill: blue;
+}
+
+.posicao_svg_line{
+  top: -16px;
+  right: 35px;
+}
+.posicao_svg_block{
+  top: 6px;
+  right: 6px;
+}
+
+
+@keyframes play36 {/* play correto */
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: -864px 0px;
+  }
+}
+
+@keyframes play36x {/* play erro */
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: -864px 0px;
+  }
+}
+
+.shapeshifter.correto{
+  background-image: url(../../assets/sprite_60fps.svg);
+  animation-name: play36;
+}
+.shapeshifter.erro{
+  background-image: url(../../assets/erro_60fps.svg);
+  animation-name: play36x;
+}
+
+.shapeshifter {
+  position: absolute;
+  z-index: 5;
+  animation-duration: 600ms;
+  animation-timing-function: steps(36);/*  */
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+/* border: 1px solid red; */
+/* background-size: 443% 107%; */
+/* background-size: 738px 25px;  */
+ /*  background-position: left -634px top 0px; */
+}
+
+/* input#cep{
+background-image: url(../../assets/sprite_60fps.svg);
+} */
+
+/* input#cep :required:valid,
+input#cep :focus:valid {
+background-image: url(../../assets/sprite_60fps.svg);
+background-position: right top;
+background-repeat: no-repeat;
+} */
+
+app-campo-control-erro {
+  position: absolute;
+  top: 80%;
+  width: 100%;
+ /*  background-color: blue; */
+}

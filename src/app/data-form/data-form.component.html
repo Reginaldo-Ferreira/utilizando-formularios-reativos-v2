@@ -1,0 +1,380 @@
+<!--formGroup para o formulário reativo do angular -->
+<form id="for1" [formGroup]="formulario" (ngSubmit)="onSubmit()" novalidate>
+  <div class="form-group row">
+    <!-- tags de input In 'Nome'-->
+    <div class="col-sm-12">
+      <!-- tag div para alinhamento da label -->
+      <label for="nome">Nome</label>
+    </div>
+    <div class="col-sm-12">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          [ngClass]="aplicaCssErroInput('nome')"
+          id="nome"
+          aria-describedby="nomeHelp"
+          placeholder="Entre com nome"
+          formControlName="nome"
+        />
+        <!--  'formControlName' para o formulário reativo indentificar individualmente o input  -->
+        <div
+          [ngClass]="aplicaCssErroIcon('nome')"
+          class="posicao_svg_block shapeshifter"
+        ></div>
+
+        <div
+          class="invalid-tooltip invalid-feedback "
+          [ngClass]="aplicarCSStooltip('nome')"
+        >
+          <!-- infinite -->
+          Por favor insira um nome!!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <!-- tags de input In 'endereço de emails'-->
+    <!--------------------------formulario EMAIL 1------------------------------------ -->
+    <div class="col-md-12">
+      <!-- tag div para alinhamento da label -->
+      <label for="email">Endereço de Email</label>
+
+      <div class="input-group">
+        <!-- essa div é necessária para o uso do 'invalid-tooltip ' -->
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-info text-white">@</span>
+        </div>
+        <input
+          type="email"
+          [ngClass]="aplicaCssErroInput('email')"
+          class="form-control"
+          id="email"
+          aria-describedby="emailHelp"
+          placeholder="nome@Email.com"
+          formControlName="email"
+        />
+        <div
+          [ngClass]="aplicaCssErroIcon('email')"
+          class="posicao_svg_block shapeshifter"
+        ></div>
+
+        <div
+          class="invalid-tooltip invalid-feedback "
+          [ngClass]="aplicarCSStooltip('email')"
+        >
+          <!-- infinite -->
+          Por favor insira um email válido!!
+        </div>
+      </div>
+      <!--  </div> -->
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <!-- tags de input In 'endereço de emails' com componente de validaçao customizado-->
+    <!--------------------------formulario EMAIL 1------------------------------------ -->
+    <div class="col-md-12">
+      <!-- tag div para alinhamento da label -->
+      <label for="email2">Endereço de Email</label>
+
+      <div class="input-group">
+        <!-- essa div é necessária para o uso do 'invalid-tooltip ' -->
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-info text-white">@</span>
+        </div>
+        <input
+          type="email"
+          [ngClass]="aplicaCssErroInput('email2')"
+          class="form-control"
+          id="email2"
+          aria-describedby="emailHelp"
+          placeholder="nome@Email.com"
+          formControlName="email2"
+        />
+
+        <app-campo-control-erro
+          [mtCert]="formulario.controls['email2'].valid"
+          [mtErro]="verificarEmailRequerido()"
+          msgErro="Esta também é uma Senha Obrigatório!"
+          PosicaoSvgCss="posicao_svg_block"
+        >
+        </app-campo-control-erro
+        ><!-- posicao_svg_block -->
+
+        <app-campo-control-erro
+          [mtCert]="formulario.controls['email2'].valid"
+          [mtErro]="verificarEmailIvalido()"
+          msgErro="Email 2 inválido"
+          PosicaoSvgCss="posicao_svg_block"
+        >
+        </app-campo-control-erro
+        ><!-- posicao_svg_block -->
+      </div>
+      <!--  </div> -->
+    </div>
+  </div>
+
+  <!--                ------------------------formulario endereço------------------------------------ -->
+  <div formGroupName="endereco">
+    <!-- ngModelGroup="endereco_ng" <-não utiliza em datadriven| div de agrupamento do angularCLI - para criação de um objeto aula Curso Angular #84-->
+    <div class="form-group row">
+      <div class="col-md-3 mb-3">
+        <label for="cep">CEP</label>
+
+        <div class="input-group">
+          <input
+            formControlName="cep"
+            appMaskDiretiva="99999-999"
+            [ngClass]="aplicaCssErroInput('endereco.cep')"
+            type="text"
+            class="form-control"
+            id="cep"
+            placeholder="CEP"
+            (blur)="consultaCEP()"
+          />
+
+          <app-campo-control-erro
+            [mtCert]="formulario.controls['endereco'].controls['cep'].valid"
+            [mtErro]="verificaValidTouched('endereco.cep')"
+            msgErro=" CEP é obrigatório."
+            PosicaoSvgCss="posicao_svg_block"
+          >
+          </app-campo-control-erro>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="numero">Número</label>
+        <div class="input-group">
+          <input
+            formControlName="numero"
+            pattern="[0-9]+"
+            placeholder="somente numero"
+            [ngClass]="aplicaCssErroInput('endereco.numero')"
+            type="text"
+            name="numero"
+            class="form-control"
+            id="numero"
+          /><!--  placeholder="numero" -->
+          <app-campo-control-erro
+            [mtCert]="formulario.get('endereco.numero').valid"
+            [mtErro]="verificaValidTouched('endereco.numero')"
+            msgErro="Número é obrigatório."
+            PosicaoSvgCss="posicao_svg_block"
+          >
+          </app-campo-control-erro>
+        </div>
+      </div>
+      <div class="col-md-6 mb-6">
+        <label for="complemento">Complemento</label>
+
+        <input
+          formControlName="complemento"
+          type="text"
+          name="complemento"
+          class="form-control"
+          id="complemento"
+          placeholder="complemento"
+        />
+      </div>
+      <!--  Tags Ruas--------------------------------------------- -->
+      <div class="col-md-12 mb-12">
+        <label for="rua">Rua</label>
+        <!-- readonly -->
+        <input
+          formControlName="rua"
+          [ngClass]="aplicaCssErroInput('endereco.rua')"
+          type="text"
+          name="rua"
+          class="form-control"
+          id="rua"
+          placeholder="rua"
+        />
+        <app-campo-control-erro
+          [mtCert]="formulario.get('endereco.rua').valid"
+          [mtErro]="verificaValidTouched('endereco.rua')"
+          msgErro="Rua é obrigatório."
+          PosicaoSvgCss="posicao_svg_line"
+          ><!--Rua posicao_svg_line -->
+        </app-campo-control-erro>
+      </div>
+    </div>
+    <!-- aparti deste codigo não coloquei a classe 'posicao_svg_block ' deixei 'posicao_svg_line' , por consequência o icon svg animation ficou delocado em relação ao input -->
+    <div class="form-group row">
+      <div class="col-md-5 col-mb-5">
+        <label for="bairro">Bairro</label>
+        <input
+          formControlName="bairro"
+          [ngClass]="aplicaCssErroInput('endereco.bairro')"
+          type="text"
+          name="bairro"
+          class="form-control"
+          id="bairro"
+          placeholder="bairro"
+        />
+        <app-campo-control-erro
+          [mtCert]="formulario.get('endereco.bairro').valid"
+          [mtErro]="verificaValidTouched('endereco.bairro')"
+          msgErro="Bairro é obrigatório."
+          PosicaoSvgCss="posicao_svg_line"
+          ><!--Bairro posicao_svg_line -->
+        </app-campo-control-erro>
+      </div>
+      <div class="col-md-4 col-mb-4">
+        <label for="cidade">Cidade</label>
+        <input
+          formControlName="cidade"
+          [ngClass]="aplicaCssErroInput('endereco.cidade')"
+          type="text"
+          name="cidade"
+          class="form-control"
+          id="cidade"
+          placeholder="cidade"
+        />
+        <app-campo-control-erro
+          [mtCert]="formulario.get('endereco.cidade').valid"
+          [mtErro]="verificaValidTouched('endereco.cidade')"
+          msgErro="Cidade é obrigatório."
+          PosicaoSvgCss="posicao_svg_line"
+          ><!--cidade posicao_svg_line -->
+        </app-campo-control-erro>
+      </div>
+
+      <div class="col-md-3 col-mb-3">
+        <label for="estado">Estado</label>
+        <select
+          formControlName="estado"
+          [ngClass]="aplicaCssErroInput('endereco.estado')"
+          name="estado"
+          class="form-control"
+          id="estado"
+          placeholder="estado"
+        >
+          <option
+            [value]="estado.sigla"
+            *ngFor="let estado of (estados | async)"
+            >{{ estado.nome }}
+          </option>
+        </select>
+        <app-campo-control-erro
+          [mtCert]="formulario.get('endereco.estado').valid"
+          [mtErro]="verificaValidTouched('endereco.estado')"
+          msgErro="Estado é obrigatório."
+          PosicaoSvgCss="posicao_svg_line"
+          ><!--estado posicao_svg_line -->
+        </app-campo-control-erro>
+      </div>
+    </div>
+  </div>
+  <!-- fim da div de agrupamento do objeto -->
+
+  <div class="form-group form-row">
+    <div class="col-md-3 ">
+      <label for="cargo">Cargo</label>
+      <!-- somente colocando o ngvalue o resultado não é retornado como setado no combobox ou select do html temos que colocar o diretiva 'compareWith' -->
+      <select [compareWith]="compararCargos" formControlName="cargo" [ngClass]="aplicaCssErroInput('cargo')" name="cargo"
+        class="form-control" id="cargo" placeholder="cargo">
+        <option [ngValue]="cargo" *ngFor="let cargo of cargos">{{ cargo.desc }}
+        </option>
+      </select>
+      <!-- [ngvalue] para verificação indireta, o angular compara os objetos no select por endereço de memória, passando por ngvalue ele compará com valores iguais.. -->
+    </div>
+
+    <div class="col-md-3 ">
+      <label for="tecnologias">tecnologias</label><!-- [compareWith]="comparartecnologias"  -->
+      <select multiple [compareWith]="compararCargos" formControlName="tecnologias"
+        [ngClass]="aplicaCssErroInput('tecnologias')" name="tecnologias" class="form-control" id="tecnologias"
+        placeholder="tecnologias" class="custom-select">
+        <option [value]="tecnologia" *ngFor="let tecnologia of tecnologias">{{ tecnologia.desc }}
+        </option>
+      </select>
+      <!-- [ngvalue] para verificação indireta, o angular compara os objetos no select por endereço de memória, passando por ngvalue ele compará com valores iguais.. -->
+      <app-campo-control-erro [mtCert]="formulario.get('tecnologias').valid"
+        [mtErro]="verificaValidTouched('tecnologias')" msgErro="Selecione uma Tecnologia ou varias!!!."
+        PosicaoSvgCss="posicao_svg_block">
+        <!--estado posicao_svg_line -->
+      </app-campo-control-erro>
+    </div>
+
+    <fieldset class="col-md-4">
+      <label for="newsletter">Newsletter</label>
+      <div id="newsletter" class="form-inline">
+
+        <div *ngFor="let item of newsletterOp; let i = index" class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="R{{i}}" formControlName="newsletter" [value]="item.valor" class="custom-control-input">
+          <label class="custom-control-label" for="R{{i}}">{{item.desc}}</label>
+        </div>
+        <!--  as labels devem ser ligadas com o input através do 'id' do input e 'for' da label os dois valores devem ser o mesmo! -->
+
+        <!-- <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="R2" formControlName="newsletter" class="custom-control-input">
+            <label class="custom-control-label" for="R2">Não</label>
+          </div> -->
+
+      </div>
+    </fieldset>
+    <!---------------fim radios------------------>
+  </div>
+  <div class="form-group  form-row">
+    <div class="col-md-3">
+      <div class="form-check">
+        <input [ngClass]="aplicaCssErroInput('termos')" formControlName="termos" class="form-check-input" type="checkbox"
+          id="defaultCheck1">
+        <label class="form-check-label" for="defaultCheck1">
+          Aceito os termos.
+        </label><!-- posso colocar ! para negar ess valid e alterna entre as validações -->
+        <app-campo-control-erro [mtCert]="formulario.get('termos').valid" [mtErro]="verificaValidTouched('termos')"
+          msgErro="Você precisa aceita os termos!!!." PosicaoSvgCss="posicao_svg_line">
+          <!--cidade posicao_svg_line -->
+
+        </app-campo-control-erro>
+
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <!-- checkBox (dinâmicos Checkboxes) aula 107 -->
+      <label  for="frameworks" class="form-check-label">FrameWorks.</label><!-- formControlName="termos" -->
+        <div id="frameworks"
+        class="form-check"
+        formArrayName="frameworks"
+        *ngFor="let item of formulario.get('frameworks').controls; let i = index"  >
+
+          <input class="form-check-input"
+            type="checkbox" id="ch{{i}}" [formControlName]="i" >
+          <label class="form-check-label" for="ch{{i}}">
+              {{ frameworks[i] }}
+          </label>
+
+        </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button
+  ><!-- [disabled]="!formulario.valid"  -->
+  <button class="btn btn-info" (click)="resetar()">Cancelar</button>
+  <button class="btn" (click)="setarCargo()">SetarCargo</button>
+  <button class="btn btn-dark" (click)="setarTecnologias()">SetarCargo</button>
+  <app-form-debug [form]="formulario"> </app-form-debug>
+</form>
+
+<div>
+  <ul addText [inserir]="'Reginaldo Ferreira'">
+    <li>Click here to add li</li>
+  </ul>
+
+  <input type="color" style="background-color: rgb(13, 0, 255);" />
+  <!--div [appAprender]="yellow" [politicianAuthor]="getPoliticianName()"></div-->
+  <pre addText [inserir]="'Reginaldo Ferreira'">[teste]</pre>
+  <pre
+    appAprender
+    [politicianAuthor]="getPoliticianName()"
+    [politicianQuote]="
+      'Government of the people, by the people, for the people, shall not perish from the Earth.'
+    "
+  >
+teste</pre
+  >
+  <rating-input [disabled]="false"></rating-input>
+</div>

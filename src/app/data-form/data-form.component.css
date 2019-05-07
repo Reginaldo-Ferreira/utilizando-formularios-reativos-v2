@@ -1,0 +1,86 @@
+
+
+
+/* Missing -moz, -ms, and -o */
+.invalid-feedback {  /*para as animações  https://github.com/daneden/animate.css */
+  -webkit-animation-duration: 0.7s;
+  animation-duration: 0.7s;
+   /*-webkit-animation-delay: 2s;
+  -vendor-animation-iteration-count: infinite; */
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}
+
+/* Missing -webkit */
+.invalid-feedback {
+    /*  -moz-border-radius: 5px; */
+    -moz-animation-duration: 0.7s;
+    animation-duration: 0.7s;
+    /*-webkit-animation-delay: 2s;
+   -vendor-animation-iteration-count: infinite; */
+   -moz-animation-iteration-count: 1;
+   animation-iteration-count: 1;
+   }
+
+   .posicao_svg_line{
+    top: -16px;
+    right: 35px;
+  }
+  .posicao_svg_block{
+    top: 6px;
+    right: 6px;
+  }
+
+@keyframes play36 {/* play correto */
+    0% {
+      background-position: 0px 0px;
+    }
+    100% {
+      background-position: -864px 0px;
+    }
+  }
+  
+  @keyframes play36x {/* play erro */
+    0% {
+      background-position: 0px 0px;
+    }
+    100% {
+      background-position: -864px 0px;
+    }
+  }
+
+  .shapeshifter.correto{
+    
+    background-image: url(../../assets/sprite_60fps.svg);
+    animation-name: play36;
+  }
+  .shapeshifter.erro{
+    background-image: url(../../assets/erro_60fps.svg);
+    animation-name: play36x;
+  }
+
+  .shapeshifter {
+    position: absolute;
+    z-index: 5;
+    animation-duration: 600ms;
+    animation-timing-function: steps(36);/*  */
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+  }
+
+  /*app-campo-control-erro {
+  position: absolute;  ->  padrão 
+  position: relative;
+  top: -40px;
+  /*top: 80%;->  padrão 
+  width: 100%;
+ /*  background-color: blue; 
+}*/
+
+app-campo-control-erro {
+  position: relative;
+  top: -25px;
+  width: 100%;
+ /*  background-color: blue; */
+}

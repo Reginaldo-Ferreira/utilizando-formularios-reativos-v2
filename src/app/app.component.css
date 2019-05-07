@@ -1,0 +1,10 @@
+/* form#form1 */ .container{
+   /*  width: 150%; */
+    padding: 10px;
+    border-radius: 5px;
+    background-image: linear-gradient(
+    to top right,
+/* #70c1b3 */#247ba0,#b2dbbf
+    
+    );
+    }

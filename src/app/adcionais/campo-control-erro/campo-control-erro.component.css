@@ -1,0 +1,111 @@
+/* .ng-invalid.ng-touched:not(form){
+/* se o valor for invalido e tiver sido tocado em então aplica este css. 
+border: 2px solid rgb(196, 34, 34);
+} */
+
+.exemplo {/*  desativado somente teste */
+    -webkit-animation-duration: 0.7s;
+    animation-duration: 0.7s;
+  
+  }
+  
+  /* Missing -moz, -ms, and -o */
+  .invalid-feedback {
+    -webkit-animation-duration: 0.7s;
+    animation-duration: 0.7s;
+     /*-webkit-animation-delay: 2s;
+    -vendor-animation-iteration-count: infinite; */
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+  }
+  
+  /* Missing -webkit */
+  .invalid-feedback {
+   /*  -moz-border-radius: 5px; */
+   -moz-animation-duration: 0.7s;
+   animation-duration: 0.7s;
+   /*-webkit-animation-delay: 2s;
+  -vendor-animation-iteration-count: infinite; */
+  -moz-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  }
+  
+  
+  
+  .svg-24px {
+  width: 24px;
+  height: 24px;
+  }
+  .check {
+  fill: blue;
+  }
+  
+  .posicao_svg_line{
+    top: -16px;
+    right: 35px;
+  }
+  .posicao_svg_block{
+    top: -23px;
+    right: 6px;
+  }
+  
+  @keyframes play36 {/* play correto */
+    0% {
+      background-position: 0px 0px;
+    }
+    100% {
+      background-position: -864px 0px;
+    }
+  }
+  
+  @keyframes play36x {/* play erro */
+    0% {
+      background-position: 0px 0px;
+    }
+    100% {
+      background-position: -864px 0px;
+    }
+  }
+  
+  .shapeshifter.correto{
+    background-image: url(../../../assets/sprite_60fps.svg);
+    
+    animation-name: play36;
+  }
+  .shapeshifter.erro{
+    background-image: url(../../../assets/erro_60fps.svg);
+    animation-name: play36x;
+  }
+  
+  .shapeshifter {
+    position: absolute;
+    z-index: 5;
+    animation-duration: 600ms;
+    animation-timing-function: steps(36);/*  */
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    
+  }
+
+  .alertErro {
+   /*  position: absolute; essa classe foi copiada da class="invalid-tooltip do bootstrap */
+   position: relative;
+  
+    top: 100%;
+    z-index: 5;
+    display: block;
+    max-width: 100%;
+    padding: 0.25rem 0.5rem;
+    margin-top: .1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #fff;
+    background-color: rgba(220, 53, 69, 0.65);
+    border-radius: 0.25rem;
+  }
+  
+  .alertErro:hover {
+    background-color: rgba(220, 53, 69, 0.8);/*  muda o tamanho e fica menos translucido */
+    font-size: 0.975rem;
+  }

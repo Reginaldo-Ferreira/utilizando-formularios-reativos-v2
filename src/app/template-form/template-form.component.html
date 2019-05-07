@@ -1,0 +1,184 @@
+<form id="for1" #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+  <div class="form-group row">
+    <!-- tags de input In 'Nome'-->
+    <div class="col-sm-12">
+      <!-- tag div para alinhamento da label -->
+      <label for="nome">Nome</label>
+    </div>
+    <div class="col-sm-12">
+    <div class="input-group">
+
+        <input #nome="ngModel" [ngClass]="aplicaCssErroInput(nome)" required type="text" class="form-control" id="nome"
+          aria-describedby="nomeHelp" placeholder="Entre com nome" [(ngModel)]="usuario.nome" name="nome">
+
+        <div [ngClass]="aplicaCssErroIcon(nome)" class="posicao_svg_block shapeshifter "></div>
+
+        <div class="invalid-tooltip invalid-feedback " [ngClass]="{
+                      'animated bounceIn delay-2s': !nome.valid }">
+          <!-- infinite -->
+          Por favor insira um email válido!!
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <!-- tags de input In 'endereço de emails'-->
+    <!--                ------------------------formulario EMAIL 1------------------------------------ -->
+    <div class="col-md-8">
+      <!-- tag div para alinhamento da label -->
+      <label for="Email1">Endereço de Email</label>
+
+      <div class="input-group">
+        <!-- essa div é necessária para o uso do 'invalid-tooltip ' -->
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-info text-white">@</span>
+        </div>
+        <input #email="ngModel" required email [ngClass]="aplicaCssErroInput(email)" type="email" class="form-control"
+          id="Email1" aria-describedby="emailHelp" placeholder="nome@Email.com" [(ngModel)]="usuario.email" name="email">
+
+        <div [ngClass]="aplicaCssErroIcon(email)" class="posicao_svg_block shapeshifter "></div>
+
+        <!--  <small id="emailHelp" class="form-text text-muted">coloque o seu email</small> -->
+        <div class="invalid-tooltip invalid-feedback " [ngClass]="{
+                    'animated bounceIn delay-2s': !email.valid
+                }">
+          <!-- infinite -->
+          Por favor insira um email válido!!
+        </div>
+      </div>
+      <!--  </div> -->
+    </div>
+    <!--                ------------------------ EMAIL 2------------------------------------ -->
+    <div class="col-md-4">
+      <div class="input-group">
+        <label for="validationTooltipUsername">Email2</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+          </div>
+          <input #email2="ngModel" required email type="email" name="email2" class="form-control" id="validationTooltipUsername"
+            placeholder="Email2" aria-describedby="validationTooltipUsernamePrepend" [(ngModel)]="usuario.email2"
+            [ngClass]="aplicaCssErroInput(email2)">
+          <div [ngClass]="aplicaCssErroIcon(email2)" class="posicao_svg_block shapeshifter "></div>
+
+          <div class="invalid-tooltip invalid-feedback ">
+            Por favor digite um email válido!.
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!--                ------------------------formulario PASSWORD------------------------------------ -->
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <label for="senha">Password</label>
+    </div>
+    <div class="col-sm-12">
+      <div  class="input-group"><!-- appAddElemErro -->
+        <input  #senha="ngModel" required [ngClass]="aplicaCssErroInput(senha)" type="password" class="form-control"
+          id="senha" placeholder="Password" [(ngModel)]="usuario.senha" name="senha">
+
+          <app-campo-control-erro   [mtCert]="senha.valid" [mtErro]="verificaValidTouched(senha)" msgErro="Atenção: Senha é necessária!" PosicaoSvgCss="posicao_svg_block" >
+          </app-campo-control-erro>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <!--                ------------------------formulario endereço------------------------------------ -->
+  <div ngModelGroup="endereco_ng"> <!-- div de agrupamento do angularCLI - para criação de um objeto aula Curso Angular #84-->
+  <div class="form-group row">
+    <div class="col-md-3 mb-3">
+      <label for="cep">CEP</label>
+
+      <div class="input-group">
+      <input appMaskDiretiva="99999-999" [ngClass]="aplicaCssErroInput(cep)" #cep="ngModel" ngModel type="text" name="cep" class="form-control" id="cep"
+        placeholder="CEP" required (blur)="consultaCEP($event.target.value, form)">
+
+        <app-campo-control-erro   [mtCert]="cep.valid" [mtErro]="verificaValidTouched(cep)" msgErro=" CEP é obrigatório." PosicaoSvgCss="posicao_svg_block" >
+        </app-campo-control-erro>
+
+    </div>
+
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="numero">Número</label>
+      <div class="input-group">
+      <input pattern="[0-9]+" placeholder="somente numero" [ngClass]="aplicaCssErroInput(numero)" #numero="ngModel" ngModel type="text" name="numero" class="form-control"
+        id="numero" required><!--  placeholder="numero" -->
+        <app-campo-control-erro   [mtCert]="numero.valid" [mtErro]="verificaValidTouched(numero)" msgErro="Número é obrigatório." PosicaoSvgCss="posicao_svg_block" >
+        </app-campo-control-erro>
+
+    </div>
+    </div>
+    <div class="col-md-6 mb-6">
+      <label for="complemento">Complemento</label>
+
+      <input #complemento="ngModel" ngModel type="text" name="complemento" class="form-control" id="complemento"
+        placeholder="complemento">
+
+    </div>
+    <!--  Tags Ruas--------------------------------------------- -->
+    <div class="col-md-12 mb-12">
+      <label for="rua">Rua</label>
+      <!-- readonly --> <input [ngClass]="aplicaCssErroInput(rua)" #rua="ngModel" ngModel type="text" name="rua" class="form-control"
+        id="rua" placeholder="rua" required>
+        <app-campo-control-erro   [mtCert]="rua.valid" [mtErro]="verificaValidTouched(rua)" msgErro="Rua é obrigatório." PosicaoSvgCss="posicao_svg_line" ><!-- posicao_svg_line -->
+        </app-campo-control-erro>
+
+    </div>
+
+  </div>
+<!-- aparti deste codigo não coloquei a classe 'posicao_svg_block ' deixei 'posicao_svg_line' , por consequência o icon svg animation ficou delocado em relação ao input -->
+  <div class="form-group row">
+    <div class="col-md-5 col-mb-5">
+      <label for="bairro">Bairro</label>
+      <input [ngClass]="aplicaCssErroInput(bairro)" #bairro="ngModel" ngModel type="text" name="bairro" class="form-control"
+        id="bairro" placeholder="bairro" required>
+        <app-campo-control-erro   [mtCert]="bairro.valid" [mtErro]="verificaValidTouched(bairro)" msgErro="Bairro é obrigatório." PosicaoSvgCss="posicao_svg_line" ><!-- posicao_svg_line -->
+        </app-campo-control-erro>
+
+
+    </div>
+    <div class="col-md-4 col-mb-4">
+      <label for="cidade">Cidade</label>
+      <input [ngClass]="aplicaCssErroInput(cidade)" #cidade="ngModel" ngModel type="text" name="cidade" class="form-control"
+        id="cidade" placeholder="cidade" required>
+        <app-campo-control-erro   [mtCert]="cidade.valid" [mtErro]="verificaValidTouched(cidade)" msgErro="Cidade é obrigatório." PosicaoSvgCss="posicao_svg_line" ><!-- posicao_svg_line -->
+        </app-campo-control-erro>
+    </div>
+    <div class="col-md-3 col-mb-3">
+      <label for="estado">Estado</label>
+      <input [ngClass]="aplicaCssErroInput(estado)" #estado="ngModel" ngModel type="text" name="estado" class="form-control"
+        id="estado" placeholder="estado" required>
+        <app-campo-control-erro   [mtCert]="estado.valid" [mtErro]="verificaValidTouched(estado)" msgErro="Estado é obrigatório." PosicaoSvgCss="posicao_svg_line" ><!-- posicao_svg_line -->
+        </app-campo-control-erro>
+
+    </div>
+
+  </div>
+</div> <!-- fim da div de agrupamento do objeto -->
+
+  <!--                ------------------------ check box------------------------------------ -->
+  <div class="form-group form-check row ">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="usuario.guarda_dados" name="salva">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+
+  <button disabled [disabled]="!form.valid" type="submit" class="btn btn-primary">Submit</button>
+  <app-form-debug [form]="form"></app-form-debug>
+</form>
+
+<svg class="svg-24px" id="checkbox-1">
+  <use xlink:href="MaterialIcons.svg#ic_check_box_outline_blank"></use>
+  <use class="check" xlink:href="MaterialIcons.svg#ic_check_box"></use>
+</svg>

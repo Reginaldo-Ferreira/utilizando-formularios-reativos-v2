@@ -1,0 +1,9 @@
+
+<!-- o simbolo da ⭐ é um emoji  -->
+<span *ngFor="let starred of stars; let i = index" 
+(click)="onTouched(); rate(i + (starred ? (value > i + 1 ? 1 : 0) : 1))"><!-- onTouched(); pode ser tirado -->
+  <ng-container *ngIf="starred; else noStar">{{i}}-⭐</ng-container>
+ <ng-template #noStar>{{i}}-·</ng-template> 
+<!--   <ng-template #noStar>{{i}}-☀️</ng-template> -->
+  
+</span>

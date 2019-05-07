@@ -1,0 +1,8 @@
+  
+<div class="alertErro" *ngIf="mtErro" [ngClass]="{'animated bounceIn delay-2s': !mtCert }"><!-- class="invalid-feedback" -->
+  {{ msgErro }}
+</div>
+<div [ngClass]="{'erro': mtErro,'correto ': mtCert}" class="{{ PosicaoSvgCss }} shapeshifter " >   
+</div>
+
+

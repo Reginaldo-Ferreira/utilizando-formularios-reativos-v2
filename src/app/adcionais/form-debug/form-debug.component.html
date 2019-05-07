@@ -1,0 +1,20 @@
+<div  *ngIf="form" class="shadow-lg p-3 mb-5 bg-white rounded">
+  <div >
+    Detalhes do form
+  </div>
+
+  <pre class="border rounded shadow-lg">
+    Form válido: {{ form.valid}}
+  </pre>
+
+  <pre class="border rounded ">
+    Form válido: {{ form.submitted}}
+  </pre>
+
+  <pre class="border rounded">
+    Valores: {{ form.value | json}}
+  </pre>
+  <p>
+      Form Status: {{ form.status }}
+    </p>
+</div>
